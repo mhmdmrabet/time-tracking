@@ -60,14 +60,18 @@
                 <th class="px-4 py-2">Task</th>
                 <th class="px-4 py-2">Start</th>
                 <th class="px-4 py-2">End</th>
+                <th class="px-4 py-2">Duration</th>
               </tr>
             </thead>
             <tbody>
               <tr v-for="{id, name , start, end} in tasks" :key="id">
                 <td class="border px-4 py-2">{{id}}</td>
                 <td class="border px-4 py-2">{{name}}</td>
-                <td class="border px-4 py-2">{{start}}</td>
-                <td class="border px-4 py-2">{{end}}</td>
+                <td class="border px-4 py-2">{{formatTimestamp(start)}}</td>
+                <td class="border px-4 py-2">{{formatTimestamp(end)}}</td>
+                <td class="border px-4 py-2">
+                  {{durationBetweenTimestamps(start, end)}}
+                </td>
               </tr>
             </tbody>
           </table>

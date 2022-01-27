@@ -3,6 +3,11 @@ Vue.createApp({
     return {
       title: "Time Tracking",
       logoSource: "https://cdn.svgporn.com/logos/vue.svg",
+      tsFormatter: Intl.DateTimeFormat("fr", {
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+      }),
       tasks: [],
       taskId: 0,
       taskName: "",
@@ -53,6 +58,22 @@ Vue.createApp({
     getAnId() {
       this.taskId++;
       return this.taskId;
+    },
+    // * FORMAT Timestamp
+    formatTimestamp(ts) {
+      return this.tsFormatter.format(ts);
+    },
+    // * CALCUL DURATION
+    durationBetweenTimestamps(start, end) {
+      let seconds = Math.floor(end / 1000 - start / 1000);
+      let minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      seconds = seconds % 60;
+      minutes = minutes % 60;
+      return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(
+        2,
+        "0"
+      )}:${String(seconds).padStart(2, "0")}`;
     },
   },
 }).mount("#app");

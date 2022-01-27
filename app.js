@@ -11,7 +11,7 @@ Vue.createApp({
   },
   methods: {
     startTask() {
-      // Verify
+      // Verification
       if (!this.taskName) {
         this.errorMsg = "Task name cannot be empty.";
         return;
@@ -26,6 +26,13 @@ Vue.createApp({
       this.startTime = Date.now();
     },
     stopTask() {
+      // Verification
+      if (!this.isTaskInProgress) {
+        this.errorMsg = "No task is in progress.";
+        return;
+      }
+
+      // End of a task
       this.isTaskInProgress = false;
       this.errorMsg = null;
     },

@@ -3,6 +3,8 @@ Vue.createApp({
     return {
       title: "Time Tracking",
       logoSource: "https://cdn.svgporn.com/logos/vue.svg",
+      tasks: [],
+      taskId: 0,
       taskName: "",
       isTaskInProgress: false,
       startTime: null,
@@ -10,6 +12,7 @@ Vue.createApp({
     };
   },
   methods: {
+    // * START
     startTask() {
       // Verification
       if (!this.taskName) {
@@ -21,10 +24,11 @@ Vue.createApp({
       } else {
         this.errorMsg = null;
       }
-      // Task
+      // Start task
       this.isTaskInProgress = true;
       this.startTime = Date.now();
     },
+    // * STOP
     stopTask() {
       // Verification
       if (!this.isTaskInProgress) {
@@ -32,9 +36,23 @@ Vue.createApp({
         return;
       }
 
-      // End of a task
+      // Saving the task
+      this.tasks.unshift({
+        id: this.getAnId(),
+        name: this.taskName,
+        start: this.startTime,
+        end: Date.now(),
+      });
+
+      // End of task
       this.isTaskInProgress = false;
       this.errorMsg = null;
+      this.taskName = "";
+    },
+    // * ID
+    getAnId() {
+      this.taskId++;
+      return this.taskId;
     },
   },
 }).mount("#app");

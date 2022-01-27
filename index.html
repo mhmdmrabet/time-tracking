@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Time Tracking</title>
   </head>
-  <body class="bg-gray-300">
+  <body class="">
     <div id="app">
       <div class="flex flex-col items-center gap-2 my-6 p-2">
         <img :src="logoSource" alt="vue js logo" class="h-24" />
@@ -16,7 +16,11 @@
         <p>Task in progress : {{isTaskInProgress ? 'Yes' : 'No'}}</p>
         <form @submit.prevent class="m-5 flex flex-col gap-2">
           <div class="flex gap-2 items-center">
-            <input type="text" v-model="taskName" class="w-96 rounded p-3" />
+            <input
+              type="text"
+              v-model="taskName"
+              class="w-96 rounded p-3 border border-blue-500 border-opacity-75"
+            />
             <button
               type="button"
               @click="startTask()"
@@ -45,6 +49,29 @@
             </div>
           </div>
         </form>
+        <div
+          v-show="tasks.length > 0"
+          class="border-4 border-gray-600 p-4 rounded"
+        >
+          <table class="table-auto border-solid w-96 text-center">
+            <thead>
+              <tr>
+                <th class="px-4 py-2">#</th>
+                <th class="px-4 py-2">Task</th>
+                <th class="px-4 py-2">Start</th>
+                <th class="px-4 py-2">End</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="{id, name , start, end} in tasks" :key="id">
+                <td class="border px-4 py-2">{{id}}</td>
+                <td class="border px-4 py-2">{{name}}</td>
+                <td class="border px-4 py-2">{{start}}</td>
+                <td class="border px-4 py-2">{{end}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
     <script src="https://unpkg.com/vue@next"></script>

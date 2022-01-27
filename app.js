@@ -8,6 +8,8 @@ Vue.createApp({
         minute: "2-digit",
         second: "2-digit",
       }),
+      nowTime: null,
+      intervalEverySecond: null,
       tasks: [],
       taskId: 0,
       taskName: "",
@@ -15,6 +17,26 @@ Vue.createApp({
       startTime: null,
       errorMsg: null,
     };
+  },
+  computed: {
+    currentDuration() {
+      if (this.startTime && this.nowTime) {
+        return this.durationBetweenTimestamps(this.startTime, this.nowTime);
+      } else {
+        return "00:00:00";
+      }
+    },
+  },
+  watch: {
+    isTaskInProgress(isInProgress) {
+      if (isInProgress) {
+        this.intervalEverySecond = setInterval(() => {
+          this.nowTime = Date.now();
+        }, 1000);
+      } else {
+        clearInterval(this.intervalEverySecond);
+      }
+    },
   },
   methods: {
     // * START
@@ -32,6 +54,7 @@ Vue.createApp({
       // Start task
       this.isTaskInProgress = true;
       this.startTime = Date.now();
+      this.nowTime = Date.now();
     },
     // * STOP
     stopTask() {
@@ -51,6 +74,7 @@ Vue.createApp({
 
       // End of task
       this.isTaskInProgress = false;
+      this.nowTime = null;
       this.errorMsg = null;
       this.taskName = "";
     },

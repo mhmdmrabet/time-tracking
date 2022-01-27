@@ -13,6 +13,7 @@
         <img :src="logoSource" alt="vue js logo" class="h-24" />
         <h1 class="text-3xl font-bold">{{title}}</h1>
         <h4 class="text-xl">Task name : {{taskName}}</h4>
+        <h4 class="text-xl">Current duration : {{currentDuration}}</h4>
         <p>Task in progress : {{isTaskInProgress ? 'Yes' : 'No'}}</p>
         <form @submit.prevent class="m-5 flex flex-col gap-2">
           <div class="flex gap-2 items-center">

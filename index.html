@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <title>Time Tracking</title>
   </head>
-  <body class="">
+  <body class="bg-zinc-300">
     <div id="app">
       <div class="flex flex-col items-center gap-2 my-6 p-2">
         <img :src="logoSource" alt="vue js logo" class="h-24" />
@@ -15,7 +15,7 @@
         <h4 class="text-xl">Task name : {{taskName}}</h4>
         <h4 class="text-xl">Current duration : {{currentDuration}}</h4>
         <p>Task in progress : {{isTaskInProgress ? 'Yes' : 'No'}}</p>
-        <form @submit.prevent class="m-5 flex flex-col gap-2">
+        <form @submit.prevent="toggleTask" class="m-5 flex flex-col gap-2">
           <div class="flex gap-2 items-center">
             <input
               type="text"
@@ -24,17 +24,14 @@
             />
             <button
               type="button"
-              @click="startTask()"
-              class="hover:ease-in hover:duration-200 hover:text-white p-3 rounded bg-emerald-500"
+              @click="toggleTask"
+              class="hover:ease-in hover:duration-200 hover:text-white p-3 rounded bg-gradient-to-r"
+              :class="{
+                'from-rose-400 to-red-500': isTaskInProgress,
+                'from-cyan-500 to-blue-500': !isTaskInProgress
+              }"
             >
-              GO
-            </button>
-            <button
-              type="button"
-              @click="stopTask"
-              class="hover:ease-in hover:duration-200 hover:text-white p-3 rounded bg-rose-700"
-            >
-              STOP
+              {{isTaskInProgress ? 'STOP' : 'GO' }}
             </button>
           </div>
           <div role="alert" v-show="errorMsg">

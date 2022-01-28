@@ -78,6 +78,13 @@ Vue.createApp({
       this.errorMsg = null;
       this.taskName = "";
     },
+    toggleTask() {
+      if (this.isTaskInProgress) {
+        this.stopTask();
+      } else {
+        this.startTask();
+      }
+    },
     // * ID
     getAnId() {
       this.taskId++;

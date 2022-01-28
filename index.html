@@ -59,6 +59,7 @@
                 <th class="px-4 py-2">Start</th>
                 <th class="px-4 py-2">End</th>
                 <th class="px-4 py-2">Duration</th>
+                <th class="px-4 py-2">Actions</th>
               </tr>
             </thead>
             <tbody>
@@ -69,6 +70,9 @@
                 <td class="border px-4 py-2">{{formatTimestamp(end)}}</td>
                 <td class="border px-4 py-2">
                   {{durationBetweenTimestamps(start, end)}}
+                </td>
+                <td class="border px-4 py-2">
+                  <task-actions :id="id" v-on:delete="deleteTask($event)" />
                 </td>
               </tr>
             </tbody>

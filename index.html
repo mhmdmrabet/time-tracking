@@ -72,7 +72,11 @@
                   {{durationBetweenTimestamps(start, end)}}
                 </td>
                 <td class="border px-4 py-2">
-                  <task-actions :id="id" v-on:delete="deleteTask($event)" />
+                  <task-actions
+                    :id="id"
+                    v-on:delete="deleteTask($event)"
+                    @restart="restartTask($event)"
+                  />
                 </td>
               </tr>
             </tbody>
